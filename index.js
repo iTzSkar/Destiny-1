@@ -1468,68 +1468,98 @@ client.on('messageDelete', message => {
  
 });
 
-client.on('message', msg => {
-    if (msg.author.bot) return;
-    if (!msg.content.startsWith(prefix)) return;
-    let command = msg.content.split(" ")[0];
-    command = command.slice(prefix.length);
-    let args = msg.content.split(" ").slice(1);
-  
-      if(command === "clear") {
-          const emoji = client.emojis.find("name", "wastebasket")
-      let textxt = args.slice(0).join("");
-      if(msg.member.hasPermission("MANAGE_MESSAGES")) {
-      if (textxt == "") {
-          msg.delete().then
-      msg.channel.send("***``ضع عدد الرسائل التي تريد مسحها 👌``***").then(m => m.delete(3000));
-  } else {
-      msg.delete().then
-      msg.delete().then
-      msg.channel.bulkDelete(textxt);
-          msg.channel.send("``php\nعدد الرسائل التي تم مسحها: " + textxt + "\n``").then(m => m.delete(3000));
-          }    
-      }
-  }
-  });
+client.on('message', message => {
+    let args = message.content.split(" ").slice(1);
+    if (message.author.bot) return;
+    if (!message.channel.guild) return;
+    if (message.content.startsWith(prefix + 'clear')) {
 
+        if (isNaN(args[0])) return message.channel.send('**Please supply a valid amount of messages to purge**');
+        if (args[0] > 100) return message.channel.send('**Please supply a number less than 100**');
 
-var userData = {};
-function forEachObject(obj, func) {
-    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
-}
-client.on("ready", () => {
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("id", "496679508028686346")
-            var Inv = Invite.code;
-            dat[Inv] = Invite.uses;
-        })
-    })
-})
-client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.find('id', '496679508540260353');
-    if (!channel) {
-        console.log("!channel fails");
-        return;
+        message.channel.bulkDelete(args[0])
+            .then(messages => message.channel.send(`**Successfully deleted \`${messages.size}/${args[0]}\` messages**`).then(msg => msg.delete({
+                timeout: 5000
+            })))
     }
-    if (member.id == client.user.id) {
-        return;
-    }
-    console.log('made it till here!');
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("id", "496679508028686346")
-            var Inv = Invite.code;
-            if (dat[Inv])
-                if (dat[Inv] < Invite.uses) {
-                    console.log(3);
-                    console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(` ♥ **تم دعوته من قبل ${Invite.inviter} ♥ `)            
- }
-            dat[Inv] = Invite.uses;
-        })
-    })
 });
+
+
+client.on('message', message => {
+   if(message.content.startsWith(prefix + "invite")) {
+    message.guild.fetchInvites().then(invs => {
+      let user = message.mentions.users.first() || message.author
+      let personalInvites = invs.filter(i => i.inviter.id === user.id);
+      let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
+               let mmmmEmbed = new Discord.RichEmbed()
+                         .setAuthor(client.user.username)
+                         .setThumbnail(message.author.avatarURL)
+ .addField(` لقد قمت بدعوة :`, ` ${inviteCount} `)
+           .setFooter(`- Requested By: ${message.author.tag}`);
+           message.channel.send(mmmmEmbed)
+});
+  }
+});
+
+
+client.on('message', message => {
+
+    if (message.author.bot) return;
+        if (message.content === ".lock") {
+                            if(!message.channel.guild) return message.reply(' This command only for servers');
+    
+    if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' ليس لديك صلاحيات');
+               message.channel.overwritePermissions(message.guild.id, {
+             SEND_MESSAGES: false
+    
+               }).then(() => {
+                   message.reply("تم تقفيل الشات ✅ ")
+               });
+                 }
+    if (message.content === ".unlock") {
+        if(!message.channel.guild) return message.reply(' This command only for servers');
+    
+    if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('ليس لديك صلاحيات');
+               message.channel.overwritePermissions(message.guild.id, {
+             SEND_MESSAGES: true
+    
+               }).then(() => {
+                   message.reply("تم فتح الشات✅")
+               });
+                 }
+    
+    
+    
+    });
+
+
+client.on('message', message => {
+    if (message.author.bot) return;
+   if (message.content.startsWith("رابط")) {
+       message.channel.createInvite({
+       thing: true,
+       maxUses: 10,
+       maxAge: 72000,
+   }).then(invite =>
+     message.author.sendMessage(invite.url)
+   )
+   const embed = new Discord.RichEmbed()
+       .setColor("RANDOM")
+         .setDescription(" تم أرسال الرابط برسالة خاصة ")
+          .setAuthor(client.user.username, client.user.avatarURL)
+                .setAuthor(client.user.username, client.user.avatarURL)
+               .setFooter('طلب بواسطة: ' + message.author.tag)
+
+     message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
+             const Embed11 = new Discord.RichEmbed()
+       .setColor("RANDOM")
+       
+   .setDescription(" مدة الرابط : يوم  عدد استخدامات الرابط : 10 ")
+     message.author.sendEmbed(Embed11)
+   }
+});
+
+
 
 
 client.login(process.env.BOT_TOKEN);

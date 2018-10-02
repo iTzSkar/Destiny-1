@@ -1231,14 +1231,14 @@ client.on('message', message => {
         });
         
         client.on('message', msg => {
-        if (msg.content === 'الوان') {
+        if (msg.content === 'colors') {
           if (msg.channel.id !== "478388106140057610") return;
           msg.channel.send({file : "https://cdn.discordapp.com/attachments/472743324084731914/478685035730305036/color.png"})
         }
       });
     client.on('message', message => {
         let args = message.content.split(' ').slice(1);
-    if(message.content.split(' ')[0] == 'لون'){
+    if(message.content.split(' ')[0] == 'color'){
     if (message.channel.id !== "478388106140057610") return;
          const embedd = new Discord.RichEmbed()
     .setFooter('Requested by '+message.author.username, message.author.avatarURL)

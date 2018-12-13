@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const moment = require('moment');
-const prefix = '.'
+const prefix = '#'
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
  
@@ -127,7 +127,34 @@ client.on('guildMemberAdd', member => {
         member.addRole(member.guild.roles.find('name', 'متشرد'));
         });
 
+client.on("guildMemberRemove", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(` 
+**
 
+اهلا بكم في مأوى الكلاب السعيد
+حيث يمكنك النباح بأريحية
+
+اتمنى السعادة لكل كلب موجود في السيرفر
+
+شروط المأوى
+1- عدم القذف
+2- احترام الكلاب المتواجدة في المأوى
+٣- عدم السكوت عن النباح بالذات في الليل وارجوا الاكثار من العواء
+
+**`)
+}).catch(console.error)
+
+})
+ 
+client.on("guildMemberAdd", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(` 
+**
+سوف ترجع لحياة الكلاب لاضالة يا كلب
+**`) 
+}).catch(console.error)
+})
 
 
 

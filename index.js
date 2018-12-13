@@ -8,8 +8,8 @@ client.on('ready', () => {
 });
 
 
-const developers = ["465649311871533066"]
-const adminprefix = "-";
+const developers = ["462317523598311446"]
+const adminprefix = "#";
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!developers.includes(message.author.id)) return;
@@ -92,53 +92,42 @@ msg.delete();
 }
 });
 
-
-client.on('message', message => {
-    if (message.author.codes) return;
-    if (!message.content.startsWith(prefix)) return;
-  
-    let command = message.content.split(" ")[0];
-    command = command.slice(prefix.length);
-  
-    let args = message.content.split(" ").slice(1);
-  
-    if (command == ".ban") {
-                 if(!message.channel.guild) return message.reply('** This command only for servers**');
-           
-    if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**انت لا تملك الصلاحيات المطلوبه**");
-    if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
-    let user = message.mentions.users.first();
-    
-    if (message.mentions.users.size < 1) return message.reply("**منشن شخص**");
-    if (!message.guild.member(user)
-    .bannable) return message.reply("**يجب ان تكون رتبة البوت اعلي من رتبه الشخص المراد تبنيدة**");
-  
-  
-    message.guild.member(user).ban(7, user);
-  
-  message.channel.send(`**:white_check_mark: ${user.tag} banned from the server ! :airplane: **  `)
-  
-  }
-  });
+client.on('guildMemberAdd', member => {
+        var embed = new Discord.RichEmbed()
+        .setThumbnail("https://cdn.discordapp.com/attachments/520278123112300564/522886747361640448/JPEG__.png")
+        .setTitle(`اهلا بالكلب المتشرد الجديد`)
+        .setDescription("حياك في مأوى الكلاب الضالة")
+        .setColor('#000000')
+    var channel =member.guild.channels.get('522614782109417473')
+    if (!channel) return;
+    channel.send({embed : embed});
+    });
 
 
-  client.on("ready", async  => {
-setInterval(function(){
-client.channels.find('id', '500699961571409920').setName("W");
-client.channels.find('id', '500699961571409920').setName("We");
-client.channels.find('id', '500699961571409920').setName("Wel");
-client.channels.find('id', '500699961571409920').setName("Welc");
-client.channels.find('id', '500699961571409920').setName("Welco");
-client.channels.find('id', '500699961571409920').setName("Welcom");
-client.channels.find('id', '500699961571409920').setName("Welcome");
-client.channels.find('id', '500699961571409920').setName("Welcome T");
-client.channels.find('id', '500699961571409920').setName("Welcome To");
-client.channels.find('id', '500699961571409920').setName("Welcome To V");
-client.channels.find('id', '500699961571409920').setName("Welcome To Ve");
-client.channels.find('id', '500699961571409920').setName("Welcome To Ver");
-client.channels.find('id', '500699961571409920').setName("Welcome To Vers");
-  }, 3000);
-});
+    client.on("message", message => {
+             var args = message.content.substring(prefix.length).split(" ");
+            if (message.content.startsWith(prefix + "مسح")) {
+       if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('** ماتقدر يا متشرد **');
+            var msg;
+            msg = parseInt();
+          message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+          message.channel.sendMessage("", {embed: {
+            title: "Done | تــم",
+            color: 000000,
+            description: "تم مسح الرسائل بنجاح",
+            footer: {
+              text: "حارس مأوى"
+            }
+          }}).then(msg => {msg.delete(3000)});
+                              }
+                            });
+         
+
+    client.on('guildMemberAdd', (member) => {
+        member.addRole(member.guild.roles.find('name', 'متشرد'));
+        });
+
+
 
 
 

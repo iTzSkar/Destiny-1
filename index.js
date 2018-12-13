@@ -92,19 +92,8 @@ msg.delete();
 }
 });
 
-client.on('guildMemberAdd', member => {
-        var embed = new Discord.RichEmbed()
-       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
-        .setTitle(`اهلا بالكلب المتشرد الجديد`)
-        .setDescription("حياك في مأوى الكلاب الضالة")
-        .setColor('#000000')
-    var channel =member.guild.channels.get('522614782109417473')
-    if (!channel) return;
-    channel.send({embed : embed});
-    });
 
-
-    client.on("message", message => {
+client.on("message", message => {
              var args = message.content.substring(prefix.length).split(" ");
             if (message.content.startsWith(prefix + "مسح")) {
        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('** ماتقدر يا متشرد **');
@@ -121,11 +110,23 @@ client.on('guildMemberAdd', member => {
           }}).then(msg => {msg.delete(3000)});
                               }
                             });
+
+client.on('guildMemberAdd', member => {
+        var embed = new Discord.RichEmbed()
+       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
+        .setTitle(`اهلا بالكلب المتشرد الجديد`)
+        .setDescription("حياك في مأوى الكلاب الضالة")
+        .setColor('#000000')
+    var channel =member.guild.channels.get('522614782109417473')
+    if (!channel) return;
+    channel.send({embed : embed});
+    });
          
 
     client.on('guildMemberAdd', (member) => {
         member.addRole(member.guild.roles.find('name', 'متشرد'));
         });
+
 
 client.on("guildMemberRemove", member => {
   member.createDM().then(function (channel) {

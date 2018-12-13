@@ -94,7 +94,7 @@ msg.delete();
 
 client.on('guildMemberAdd', member => {
         var embed = new Discord.RichEmbed()
-    .setFooter(message.author.username, message.author.avatarURL) 
+       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
         .setTitle(`اهلا بالكلب المتشرد الجديد`)
         .setDescription("حياك في مأوى الكلاب الضالة")
         .setColor('#000000')

@@ -113,7 +113,7 @@ client.on("message", message => {
 
 client.on('guildMemberAdd', member => {
         var embed = new Discord.RichEmbed()
-    .setFooter(message.author.username, message.author.avatarURL) 
+        .setThumbnail("https://cdn.discordapp.com/attachments/520278123112300564/522886747361640448/JPEG__.png")
         .setTitle(`اهلا بالكلب المتشرد الجديد`)
         .setDescription("حياك في مأوى الكلاب الضالة")
         .setColor('#000000')

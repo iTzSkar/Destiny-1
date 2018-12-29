@@ -93,56 +93,20 @@ msg.delete();
 });
 
 
-client.on("message", message => {
-             var args = message.content.substring(prefix.length).split(" ");
-            if (message.content.startsWith(prefix + "مسح")) {
-       if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('** ماتقدر يا متشرد **');
-            var msg;
-            msg = parseInt();
-          message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-          message.channel.sendMessage("", {embed: {
-            title: "Done | تــم",
-            color: 000000,
-            description: "تم مسح الرسائل بنجاح",
-            footer: {
-              text: "حارس مأوى"
-            }
-          }}).then(msg => {msg.delete(3000)});
-                              }
-                            });
-
-client.on('guildMemberAdd', member => {
-        var embed = new Discord.RichEmbed()
-        .setThumbnail("https://cdn.discordapp.com/attachments/520278123112300564/522886747361640448/JPEG__.png")
-        .setTitle(`اهلا بالكلب المتشرد الجديد`)
-        .setDescription("حياك في مأوى الكلاب الضالة")
-        .setColor('#000000')
-    var channel =member.guild.channels.get('522614782109417473')
-    if (!channel) return;
-    channel.send({embed : embed});
-    });
-         
-
-    client.on('guildMemberAdd', (member) => {
-        member.addRole(member.guild.roles.find('name', 'متشرد'));
-        });
-
-
 client.on("guildMemberRemove", member => {
   member.createDM().then(function (channel) {
   return channel.send(` 
 **
 
-اهلا بكم في مأوى الكلاب السعيد
-حيث يمكنك النباح بأريحية
+اهلا وسهلا بك في المكتبة.
 
-اتمنى السعادة لكل كلب موجود في السيرفر
+في المكتبة يوجد انواع المعلومات التي قد تهمك.
 
-شروط المأوى
-1- عدم القذف
-2- احترام الكلاب المتواجدة في المأوى
-٣- عدم السكوت عن النباح بالذات في الليل وارجوا الاكثار من العواء
+أذهب الى الخريطة لمعرفة العلوم التي جمعناها.
 
+يوجد لدينا روم صوتي وبموسيقى كلاسيكية على مدار الساعة.
+
+اتمنى لك الاستمتاع في المكتبة
 **`)
 }).catch(console.error)
 
@@ -152,7 +116,10 @@ client.on("guildMemberAdd", member => {
   member.createDM().then(function (channel) {
   return channel.send(` 
 **
-سوف ترجع لحياة الكلاب لاضالة يا كلب
+اتمنى لك التوفيق وشكرا لزيارة المكتبة 
+
+اذا كنت تريد العودة هذا رابط المكتبة
+https://discord.gg/fegmkKV
 **`) 
 }).catch(console.error)
 })
